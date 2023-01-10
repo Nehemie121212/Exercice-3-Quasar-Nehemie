@@ -1,8 +1,9 @@
 <template>
 <q-card
   class="card">
+  <!-- TODO tester que l'images de remplacement fonctionne bien -->
   <q-img
-    :src="plat.image ? plat.image : 'statics/image-placeholder.png'"
+    :src="plat.image ? plat.image : 'https://via.placeholder.com/200'"
     basic
     contain
   >
@@ -23,7 +24,10 @@
 
   <q-card-section class="description">
     <span v-if="plat.description">{{ plat.description }}</span>
-    <i v-else>Aucune descripion fournie.</i>
+    <!-- TODO Ne pas utiliser la balise <i> car dépréciée
+         utliser les helpers CSS https://quasar.dev/style/typography#css-helper-classes
+    -->
+    <span class="text-italic" v-else>Aucune descripion fournie.</span>
   </q-card-section>
 
   <q-card-actions
@@ -33,17 +37,24 @@
       @click="afficherFormPlat = true"
       icon="edit"
       color="blue"
-      flat>Modifier</q-btn>
+      flat>Modifier
+    </q-btn>
+    <!-- TODO aérer le code et aligner les balises de fermerture -->
     <q-btn
       @click="dialogSupprimer()"
       icon="delete"
       color="red"
-      flat>Supprimer</q-btn>
+      flat>Supprimer
+    </q-btn>
   </q-card-actions>
 
   <q-dialog
     v-model="afficherFormPlat">
-    <form-plat action="modifier" :platAModifier="plat" @close="afficherFormPlat = false"  />
+    <form-plat
+      action="modifier"
+      :platAModifier="plat"
+      @close="afficherFormPlat = false"
+    />
   </q-dialog>
 </q-card>
 </template>
@@ -65,12 +76,10 @@ export default {
         message: 'Etes vous sur de vouloir supprimer ce plat ?',
         persistent: true,
         ok: {
-          label: 'Supprimer',
-          push: true
+          label: 'Supprimer'
         },
         cancel: {
           label: 'Annuler',
-          push: true,
           color: 'grey'
         }
       }).onOk(() => {

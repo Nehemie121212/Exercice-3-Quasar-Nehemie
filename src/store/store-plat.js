@@ -35,10 +35,17 @@ const state = {
 }
 const getters = {
   plats: (state) => {
-    return state.plats
+    // Copie du state pour ne pas modifier l'original avec [...tableau]
+    return [...state.plats].sort(function (a, b) {
+      return a.nom.localeCompare(b.nom)
+    }) // TODO Améliorer en triant les données par nom ASC
+    // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+    // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
+    // https://usefulangle.com/post/227/javascript-sort-array-of-objects
   }
 }
 const mutations = {
+  // TODO écrire la mutation en majuscules SUPPRIMER_PLAT
   supprimerPlat (state, id) {
     // recréer le tableau sans la ligne avec l'id selectionné
     state.plats = state.plats.filter(el => el.id !== id)

@@ -80,7 +80,7 @@ export default {
   data () {
     return {
       plat: {
-        name: '',
+        nom: '',
         description: '',
         note: 1,
         image: ''
@@ -90,6 +90,10 @@ export default {
   methods: {
     ...mapActions('plats', ['ajouterPlat', 'modifierPlat']),
     envoyerForm () {
+      // TODO Ajouter demander la validation des champs
+      this.$refs.nom.validate()
+      this.$refs.description.validate()
+      // TODO Simplifier avec !this.$refs.nom.hasError && !this.$refs.description.hasError
       if (this.plat.nom && this.plat.nom.length < 21 && this.plat.description.length < 151) {
         this.sauverPlat()
         this.$emit('close')
